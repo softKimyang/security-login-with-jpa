@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 리스트</title>
+</head>
+<body>
+<div class="container">
+    <h1>고객 관리 시스템</h1>
+    <hr/>
+    <form th:action="@{/customers/create}" method="post">
+        <legend>신규 고객 등록</legend>
+        <div>
+            <label for="lastName">성</label>
+            <input type="text" id="lastName" name="lastName" value="홍"/>
+        </div>
+        <div>
+            <label for="firstName">이름</label>
+            <input type="text" id="firstName" name="firstName" value="길동"/>
+        </div>
+        <input type="submit" value="작성">
+    </form>
+    <hr/>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>성</th>
+            <th>이름</th>
+            <th colspan="2">편집</th>
+        </tr>
+        <tr  th:each="customer : ${customers}">
+            <td th:text="${customer.id}">100</td>
+            <td th:text="${customer.firstName}">홍</td>
+            <td th:text="${customer.lastName}">길동</td>
+
+            <td>
+                <form th:action="@{/customers/edit}" method="get">
+                    <input type="hidden" value="${customer.id}">
+                    <input type="submit" name="form" value="편집">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/customers/delete}" method="get">
+                    <input type="hidden" value="${customer.id}">
+                    <input type="submit" name="form" value="삭제">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
