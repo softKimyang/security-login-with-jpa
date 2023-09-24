@@ -1,0 +1,15 @@
+인텔리제이에서 서버 실행한다.
+
+cmd창이나 인텔리제이 터미널에서  아래 테스트
+// create
+curl http://localhost:8090/api/customers -v -X POST -H "Content-Type: application/json" -d "{\"firstName\":\"Tom\",\"lastName\":\"Homes\"}"
+// get one
+curl http://localhost:8090/api/customers/1 -v -X GET
+//update
+curl http://localhost:8090/api/customers/11 -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\":\"Tom\",\"lastName\":\"Homes\"}"
+
+//delete
+curl http://localhost:8090/api/customers/11 -v -X DELETE
+
+//paging
+curl -X GET “http://localhost:8090/api/customers/page=0&size=3”
