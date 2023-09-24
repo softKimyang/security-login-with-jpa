@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Controller
@@ -49,4 +50,29 @@ public class CustomerController {
         customerService.delete(id);
         return "redirect:/customers";
     }
+
+    @GetMapping(value = "edit", params = "form")
+    String editForm(@RequestParam Integer id, CustomerRequestDto requestDto ) {
+        Customer customer = customerService.findOne(id);
+        BeanUtils.copyProperties(customer, requestDto);
+        return "customers/edit";
+    }
+
+    @PostMapping(value = "edit")
+    String edit(@RequestParam Integer id, @Validated CustomerRequestDto requestDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return editForm(id, requestDto);
+        }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(requestDto, customer);
+        customer.setId(id);
+        customerService.update(customer);
+        return "redirect:/customers";
+    }
+
+    @GetMapping(value = "goToTop")
+    String goToTop() {
+        return "redirect:/customers";
+    }
+
 }
