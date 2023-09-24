@@ -1,0 +1,32 @@
+server:
+  port: 8090
+spring:
+  h2:
+    console:
+      enabled: true  # H2 Console? ???? ?? (H2 Console? H2 Database? UI? ????? ??)
+      path: /h2-console
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy  # Database? H2? ?????.
+    url: jdbc:log4jdbc:h2:file:/tmp/customer  # H2 ?? ?? jdbc:log4jdbc:h2:file:/tmp/testdb jdbc:log4jdbc:h2:mem:~/test
+    username: sa  # H2 ?? ? ??? username ?? (??? ??? ??)
+    password:  # H2 ?? ? ??? password ?? (??? ??? ??)
+    connection-test-query: SELECT NOW() FROM dual
+    sqlScriptEncoding: UTF-8
+  jpa:
+    hibernate.ddl-auto: validate
+  thymeleaf:
+    cache: false
+  flyway:
+    ignore-ignored-migrations:true
+## logging
+logging:
+  file:
+    path: ./logs
+
+spring.thymeleaf.cache: false
+spring.thymeleaf.prefix: file:src/main/resources/templates/
+spring.devtools.restart.enabled: true
+
+security.basic.enabled: false
+
+
